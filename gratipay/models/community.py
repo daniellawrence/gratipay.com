@@ -5,9 +5,12 @@ from postgres.orm import Model
 
 name_pattern = re.compile(r'^[A-Za-z0-9,._ -]+$')
 
+
 def slugize(slug):
     """Convert a string to a string for an URL.
     """
+    print slug
+    print name_pattern
     assert name_pattern.match(slug) is not None
     slug = slug.lower()
     for c in (' ', ',', '.', '_'):
@@ -38,6 +41,7 @@ def get_list_for(db, participant_id):
              WHERE ccm.is_member AND ccm.participant = %s
           ORDER BY c.nmembers ASC, c.slug
         """, (participant_id,))
+
 
 class Community(Model):
     """Model a community on Gratipay.
